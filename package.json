@@ -1,1 +1,20 @@
-{"name":"wearquest","version":"0.1.0","private":true,"description":"Fashion quest hybrid app prototype","scripts":{"check":"node --check dist/app.js","native:sync":"cap sync","native:ios":"cap open ios","native:android":"cap open android"},"dependencies":{"@capacitor/core":"^8.0.0","@capacitor/ios":"^8.0.0","@capacitor/android":"^8.0.0"},"devDependencies":{"@capacitor/cli":"^8.0.0"}}
+{
+  "name": "wearquest",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Fashion quest hybrid app prototype",
+  "scripts": {
+    "check": "node --check dist/app.js && node --check dist/auth.js && node --check dist/auth-config.js",
+    "native:sync": "cap sync",
+    "native:ios": "cap open ios",
+    "native:android": "cap open android"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/ios": "^8.0.0",
+    "@capacitor/android": "^8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.0.0"
+  }
+}

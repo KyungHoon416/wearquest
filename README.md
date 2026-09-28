@@ -49,3 +49,6 @@ https://unsplash.com/photos/a-pair-of-jeans-a-jacket-and-a-pair-of-sneakers-are-
 장바구니 / 상품 옵션 / 배송지 입력 / 포인트 주문 흐름 추가.
 배송지 입력은 체험 목적이며 저장·전송하지 않습니다. 주문의 상품/옵션/금액 정보만 기존 로컬 저장소에 기록합니다.
 추가 샘플 사진: Mediamodifier https://unsplash.com/photos/TvL5vIgwiwo , Eduardo Pastor https://unsplash.com/photos/3oejsU5OQVk , Bence Balla-Schottner https://unsplash.com/photos/knLtXELIHIM
+
+## 로그인·회원가입
+아이디/비밀번호 로그인, 회원가입, Google·Kakao·Naver·Apple 및 기타 로그인 화면을 제공합니다. 인증 서버는 아직 연결 전이며 실제 계정 생성이나 SNS 인증은 실행하지 않습니다. 연결 설정과 API 계약은 [인증 연결 문서](docs/AUTH_INTEGRATION.md)를 참조하세요. 비밀번호/토큰을 브라우저 저장소에 저장하지 않습니다.
