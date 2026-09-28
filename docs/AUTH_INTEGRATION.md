@@ -1,7 +1,8 @@
 # WEAR QUEST 인증 연결
 
 ## 현재 구현 상태
-- 로그인: 아이디 또는 이메일 + 비밀번호, 비밀번호 표시 전환.
+- 첫 로그인 화면: 구글 / 카카오 / 네이버 / Apple / 기타 로그인 선택.
+- 기타 로그인: 아이디 또는 이메일 + 비밀번호, 비밀번호 표시 전환 및 회원가입 링크.
 - 회원가입: 아이디 / 이메일 / 닉네임 / 비밀번호 / 비밀번호 확인 / 약관 확인.
 - Google, Kakao, Naver, Apple 및 추가 공급자 확장 UI.
 - 입력 검증, 전송 중 중복 방지, 오류 및 완료 메시지, 세션 조회와 로그아웃 연결 코드.
@@ -30,7 +31,7 @@ POST 요청에 X-CSRF-Token 사용. 서버는 클라이언트 검증에 의존�
 ## SNS 설정
 각 제공자 개발자 콘솔에서 앱 생성, client ID, secret/서명키 및 승인된 callback 설정이 필요하다. secret과 Apple private key는 서버의 비밀 설정에만 보관한다. Google/Kakao/Naver/Apple 버튼은 설정된 인증 서버로 이동한다. 자체 OAuth callback 또는 토큰 검증은 현재 클라이언트에 구현하지 않는다.
 
-추가 공급자는 auth-config.js의 additionalProviders에 `{id:'provider-id',label:'서비스명'}`을 추가하고 서버에도 동일한 공급자를 등록한다. 설정되지 않은 기타 로그인은 추가 서비스 안내만 표시한다.
+추가 공급자는 auth-config.js의 additionalProviders에 `{id:'provider-id',label:'서비스명'}`을 추가하고 서버에도 동일한 공급자를 등록한다. 기타 로그인 버튼은 아이디·비밀번호 화면으로 이동한다. 추가 공급자는 별도 UI 확장이 필요하다.
 
 ## 하이브리드 앱
 현재 어댑터는 웹 브라우저 세션 계약이다. 스토어 앱 실제 인증에는 iOS/Android용 공급자 등록, 외부 브라우저 기반 OAuth, Universal Links/App Links 콜백, 네이티브 세션 복귀를 별도로 구현해야 한다. WebView에서 SNS 로그인이 완료된다고 가정하면 안 된다. Capacitor 기본 WebView/정적 파일은 서버 쿠키 인증과 별도 검증이 필요하다.
