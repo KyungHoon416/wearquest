@@ -1,6 +1,9 @@
 # WEAR QUEST 인증 연결
 
-## 현재 구현 상태
+## 서버 구현 추가 (2026-09-29)
+Firestore 기반 자체 Google OAuth/세션 및 이미지 API를 `functions/`에 작성했습니다. Firebase Authentication은 사용하지 않습니다. 실제 배포는 권한/인증 문제로 미완료이며 프런트 연결은 비활성입니다. 최신 상태와 배포 절차는 [BACKEND.md](BACKEND.md)를 확인하세요.
+
+## 현재 프런트 구현 상태
 - 첫 로그인 화면: 구글 / 카카오 / 네이버 / Apple / 기타 로그인 선택.
 - 기타 로그인: 아이디 또는 이메일 + 비밀번호, 비밀번호 표시 전환 및 회원가입 링크.
 - 회원가입: 아이디 / 이메일 / 닉네임 / 비밀번호 / 비밀번호 확인 / 약관 확인.
@@ -11,7 +14,7 @@
 - 게임·포인트 localStorage는 게스트 체험 기록이며 인증 계정이나 서버 원장과 연동하지 않았다.
 
 ## 연결 전에 필요한 결정
-사용할 인증 서버/Firebase 프로젝트와 운영 도메인을 확정한다. Sites의 ChatGPT 로그인을 일반 회원 계정으로 대체 사용하지 않는다. 공개 계정 인증은 외부 서버가 책임진다. 이 저장소에는 인증 서버나 OAuth secret이 포함되어 있지 않다.
+사용할 인증 서버/Firebase 프로젝트와 운영 도메인을 확정한다. Sites의 ChatGPT 로그인을 일반 회원 계정으로 대체 사용하지 않는다. 공개 계정 인증은 외부 서버가 책임진다. 이 저장소에는 functions/ 인증 서버 코드가 있으며 OAuth secret은 포함되어 있지 않다.
 
 ## 프런트엔드가 기대하는 HTTPS API
 모든 응답은 JSON. 브라우저 요청은 credentials: include. 세션 쿠키는 HttpOnly, Secure이고 서버는 CSRF 및 Origin을 검증해야 한다. 크로스 오리진에서는 허용된 정확한 프런트엔드 origin만 CORS 허용하고 적합한 SameSite 정책을 적용한다. API를 별도 사이트에 두면 브라우저의 제3자 쿠키 제한도 검토해야 하므로 가능하면 동일 사이트 도메인 구조를 사용한다.
@@ -29,7 +32,7 @@ POST 요청에 X-CSRF-Token 사용. 서버는 클라이언트 검증에 의존�
 비밀번호는 서버에서 검증된 인증 서비스 또는 적절한 비밀번호 해싱 라이브러리로 처리한다. 비밀번호를 직접 저장하는 브라우저 데모 구현은 하지 않는다. 회원가입 완료를 활성화하기 전에 실제 약관과 개인정보 처리방침, 이메일 인증 및 계정 복구/탈퇴 정책을 확정한다.
 
 ## SNS 설정
-각 제공자 개발자 콘솔에서 앱 생성, client ID, secret/서명키 및 승인된 callback 설정이 필요하다. secret과 Apple private key는 서버의 비밀 설정에만 보관한다. Google/Kakao/Naver/Apple 버튼은 설정된 인증 서버로 이동한다. 자체 OAuth callback 또는 토큰 검증은 현재 클라이언트에 구현하지 않는다.
+각 제공자 개발자 콘솔에서 앱 생성, client ID, secret/서명키 및 승인된 callback 설정이 필요하다. secret과 Apple private key는 서버의 비밀 설정에만 보관한다. Google/Kakao/Naver/Apple 버튼은 설정된 인증 서버로 이동한다. OAuth callback 및 토큰 검증은 functions/ 서버에서만 처리한다.
 
 추가 공급자는 auth-config.js의 additionalProviders에 `{id:'provider-id',label:'서비스명'}`을 추가하고 서버에도 동일한 공급자를 등록한다. 기타 로그인 버튼은 아이디·비밀번호 화면으로 이동한다. 추가 공급자는 별도 UI 확장이 필요하다.
 

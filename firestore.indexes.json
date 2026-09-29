@@ -1,0 +1,8 @@
+{
+  "indexes": [],
+  "fieldOverrides": [
+    {"collectionGroup":"sessions","fieldPath":"expiresAt","ttl":true,"indexes":[]},
+    {"collectionGroup":"oauthStates","fieldPath":"expiresAt","ttl":true,"indexes":[]},
+    {"collectionGroup":"rateLimits","fieldPath":"expiresAt","ttl":true,"indexes":[]}
+  ]
+}

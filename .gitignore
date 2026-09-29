@@ -6,3 +6,9 @@ firebase-debug*.log
 android/.gradle/
 android/local.properties
 ios/App/Pods/
+.env*
+!.env.example
+.secret.local
+*firebase-adminsdk*.json
+client_secret*.json
+serviceAccount*.json

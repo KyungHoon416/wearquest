@@ -1,0 +1,7 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Custom auth is checked by the server. No browser SDK access.
+    match /{document=**} { allow read, write: if false; }
+  }
+}
