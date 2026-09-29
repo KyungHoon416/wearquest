@@ -1,0 +1,6 @@
+const test=require('node:test'),assert=require('node:assert/strict');
+const {random,hash,equal,cookieToken,validSession,validMutation,publicUser}=require('../src/security');
+test('opaque session cookie parsing rejects injected and malformed tokens',()=>{const t=random();assert.equal(t.length,43);assert.equal(cookieToken('other=x; __session='+t),t);assert.equal(cookieToken('__session=../../secrets'),null);assert.equal(cookieToken('fake__session='+t),null);assert.notEqual(hash(t),t);});
+test('mutation requires exact origin and correct CSRF token',()=>{assert.equal(validMutation('https://app','https://app','a','a'),true);assert.equal(validMutation('https://app.evil','https://app','a','a'),false);assert.equal(validMutation('https://app','https://app',undefined,undefined),false);assert.equal(equal('a','b'),false);});
+test('expired and missing sessions rejected',()=>{assert.equal(validSession(null),false);assert.equal(validSession({expiresAt:{toMillis:()=>100}},101),false);assert.equal(validSession({expiresAt:{toMillis:()=>200}},100),true);});
+test('public profile excludes credentials and authority',()=>{assert.deepEqual(publicUser('id',{nickname:'Name',passwordHash:'secret',role:'admin'}),{id:'id',username:'',nickname:'Name',email:'',onboardingRequired:true});});
