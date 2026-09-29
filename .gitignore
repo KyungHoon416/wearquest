@@ -1,4 +1,6 @@
 node_modules/
+.firebase/
+firebase-debug*.log
 .DS_Store
 .sites-runtime/
 android/.gradle/
