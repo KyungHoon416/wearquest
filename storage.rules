@@ -1,0 +1,16 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Private, fixed-size avatar slot: no unbounded uploads or public download URLs.
+    match /users/{uid}/avatar/original {
+      allow read, delete: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.size > 0
+        && request.resource.size <= 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png|webp)');
+    }
+    // Publishing product images is a trusted-server operation.
+    match /public/products/{productId}/{fileName} { allow read: if true; }
+    match /{allPaths=**} { allow read, write: if false; }
+  }
+}

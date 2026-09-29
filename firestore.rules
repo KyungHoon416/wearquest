@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function owner(uid) {
+      return request.auth != null && request.auth.uid == uid
+        && (!exists(/databases/$(database)/documents/users/$(uid))
+          || !('status' in get(/databases/$(database)/documents/users/$(uid)).data)
+          || get(/databases/$(database)/documents/users/$(uid)).data.status == 'active');
+    }
+    function validProfile() {
+      return request.resource.data.keys().hasAll(['displayName', 'createdAt', 'updatedAt'])
+        && request.resource.data.keys().hasOnly(['displayName', 'createdAt', 'updatedAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() > 0
+        && request.resource.data.displayName.size() <= 80
+        && request.resource.data.get('updatedAt', null) == request.time;
+    }
+    match /users/{uid} {
+      allow get: if owner(uid);
+      allow create: if owner(uid) && validProfile()
+        && request.resource.data.get('createdAt', null) == request.time;
+      allow update: if owner(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'updatedAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() > 0
+        && request.resource.data.displayName.size() <= 80
+        && request.resource.data.get('updatedAt', null) == request.time
+        && request.resource.data.get('createdAt', null) == resource.data.get('createdAt', null);
+      // Reward balances and orders are written only by a trusted server.
+      match /wallet/{id} { allow read: if owner(uid); }
+      match /ledger/{id} { allow read: if owner(uid); }
+      match /orders/{id} { allow read: if owner(uid); }
+      match /images/{id} { allow read: if owner(uid); }
+    }
+    match /products/{id} {
+      allow read: if resource.data.published == true;
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

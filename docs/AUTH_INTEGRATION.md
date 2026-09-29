@@ -1,13 +1,17 @@
 # WEAR QUEST 인증 연결
 
+## Firebase 연결 추가 (2026-09-29)
+
+Google 로그인용 Firebase Auth 어댑터와 Firestore 프로필 저장 코드를 추가했습니다. 웹 앱/서울 Firestore DB 생성, 규칙 배포, Google 공급자 활성화와 공개 설정 반영을 완료했습니다. 실제 사용자 로그인 완료는 확인이 필요합니다. 최신 연결 절차와 이미지 설계는 [Firebase 백엔드 문서](FIREBASE_BACKEND.md)를 참조하세요. 아래 HTTPS API 계약은 기존 어댑터/다른 공급자를 위한 참고이며 Firebase Google 로그인은 해당 API를 사용하지 않습니다.
+
 ## 현재 구현 상태
 - 첫 로그인 화면: 구글 / 카카오 / 네이버 / Apple / 기타 로그인 선택.
 - 기타 로그인: 아이디 또는 이메일 + 비밀번호, 비밀번호 표시 전환 및 회원가입 링크.
 - 회원가입: 아이디 / 이메일 / 닉네임 / 비밀번호 / 비밀번호 확인 / 약관 확인.
 - Google, Kakao, Naver, Apple 및 추가 공급자 확장 UI.
 - 입력 검증, 전송 중 중복 방지, 오류 및 완료 메시지, 세션 조회와 로그아웃 연결 코드.
-- `dist/auth-config.js`의 `apiBase`는 비어 있다. 현재 공개 버전은 계정 생성이나 실제 인증을 실행하지 않는다.
-- 비밀번호, 인증 토큰 및 계정 목록을 localStorage/sessionStorage에 저장하지 않는다. 미연결 상태에서는 네트워크 전송도 하지 않는다.
+- `dist/auth-config.js`의 `apiBase`는 비어 있다. Google은 별도의 Firebase 어댑터로 실제 인증하며, 아이디 가입/다른 공급자는 아직 미연결이다.
+- 앱이 비밀번호나 인증 토큰을 직접 저장하지 않는다. Firebase SDK는 Google 세션을 탭 단위로 관리한다. 미연결 아이디 가입은 전송하지 않는다.
 - 게임·포인트 localStorage는 게스트 체험 기록이며 인증 계정이나 서버 원장과 연동하지 않았다.
 
 ## 연결 전에 필요한 결정

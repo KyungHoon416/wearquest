@@ -51,4 +51,12 @@ https://unsplash.com/photos/a-pair-of-jeans-a-jacket-and-a-pair-of-sneakers-are-
 추가 샘플 사진: Mediamodifier https://unsplash.com/photos/TvL5vIgwiwo , Eduardo Pastor https://unsplash.com/photos/3oejsU5OQVk , Bence Balla-Schottner https://unsplash.com/photos/knLtXELIHIM
 
 ## 로그인·회원가입
-아이디/비밀번호 로그인, 회원가입, Google·Kakao·Naver·Apple 및 기타 로그인 화면을 제공합니다. 인증 서버는 아직 연결 전이며 실제 계정 생성이나 SNS 인증은 실행하지 않습니다. 연결 설정과 API 계약은 [인증 연결 문서](docs/AUTH_INTEGRATION.md)를 참조하세요. 비밀번호/토큰을 브라우저 저장소에 저장하지 않습니다.
+아이디/비밀번호 로그인, 회원가입, Google·Kakao·Naver·Apple 및 기타 로그인 화면을 제공합니다. Google은 Firebase Authentication으로 연결했습니다. 다른 간편로그인과 아이디·비밀번호 가입은 아직 미연결입니다. 연결 설정과 API 계약은 [인증 연결 문서](docs/AUTH_INTEGRATION.md)를 참조하세요. 비밀번호/토큰을 브라우저 저장소에 저장하지 않습니다.
+
+## Firebase 백엔드 준비
+Google Firebase Auth 어댑터, 사용자 프로필 Firestore 규칙, 이미지 Storage 규칙을 추가했습니다. 서울 Firestore DB와 Google 로그인 공급자 설정을 완료했습니다. Storage는 설계 단계입니다. [현재 상태와 DB·이미지 설계](docs/FIREBASE_BACKEND.md)를 참조하세요. `npm run test:auth`로 인증 UI 어댑터 테스트를 실행합니다.
+
+## 관리자 웹앱
+관리자 전용 주소: https://wearquest-admin-9a45f.web.app
+
+`admin/` 독립 화면과 `functions/index.js` 자체 세션 API. 관리자 10개 메뉴, 역할 검사, 포인트·주문 트랜잭션, 이미지 검증, 정책 버전 보존을 구현했습니다. [운영 상태와 남은 작업](docs/ADMIN.md)을 확인하세요. 최초 계정 발급은 운영자 승인 절차를 따릅니다.
