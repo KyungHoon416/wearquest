@@ -4,7 +4,7 @@
   "private": true,
   "description": "Fashion quest hybrid app prototype",
   "scripts": {
-    "check": "node --check dist/app.js && node --check dist/auth.js && node --check dist/auth-config.js && node --check dist/firebase-config.js && node --check dist/firebase-client.js && node --check admin/admin.js && node --check functions/index.js && node --check dist/public-content.js && node --check functions/member-app.js && node --check functions/member-api.js && node --check functions/game-service.js && node --check dist/game-tracking.js && node --check admin/games.js",
+    "check": "node --check dist/app.js && node --check dist/auth.js && node --check dist/auth-config.js && node --check dist/firebase-config.js && node --check dist/firebase-client.js && node --check admin/admin.js && node --check functions/index.js && node --check dist/public-content.js && node --check functions/member-app.js && node --check functions/member-api.js && node --check functions/game-service.js && node --check dist/game-tracking.js && node --check admin/games.js && node --check functions/product-image.js && node --check admin/product-images.js",
     "native:sync": "cap sync",
     "native:ios": "cap open ios",
     "native:android": "cap open android",
