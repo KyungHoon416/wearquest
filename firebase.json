@@ -10,6 +10,13 @@
       ],
       "rewrites": [
         {
+          "source": "/api/auth/**",
+          "function": {
+            "functionId": "memberApi",
+            "region": "asia-northeast3"
+          }
+        },
+        {
           "source": "/api/public/**",
           "function": {
             "functionId": "adminApi",
