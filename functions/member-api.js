@@ -6,4 +6,4 @@ const {createMemberApp} = require('./member-app');
 const kakaoSecret = defineSecret('KAKAO_CLIENT_SECRET');
 const naverSecret = defineSecret('NAVER_CLIENT_SECRET');
 const applePrivateKey = defineSecret('APPLE_PRIVATE_KEY');
-exports.memberApi = onRequest({region: 'asia-northeast3', secrets: [kakaoSecret, naverSecret, applePrivateKey], memory: '256MiB', maxInstances: 3, concurrency: 20, timeoutSeconds: 60, invoker: 'public'}, createMemberApp({db: getFirestore(), getSecret: () => kakaoSecret.value(), getNaverSecret: () => naverSecret.value(), getApplePrivateKey: () => applePrivateKey.value()}));
+exports.memberApi = onRequest({region: 'asia-northeast3', secrets: [kakaoSecret, naverSecret, applePrivateKey], memory: '256MiB', maxInstances: 3, concurrency: 20, timeoutSeconds: 60, invoker: 'public'}, createMemberApp({db: getFirestore(), getSecret: () => kakaoSecret.value(), getNaverSecret: () => naverSecret.value(), getApplePrivateKey: () => applePrivateKey.value(), verifyFirebaseToken: token => require('firebase-admin/auth').getAuth().verifyIdToken(token, true)}));

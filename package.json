@@ -4,7 +4,7 @@
   "private": true,
   "description": "Fashion quest hybrid app prototype",
   "scripts": {
-    "check": "node --check dist/app.js && node --check dist/auth.js && node --check dist/auth-config.js && node --check dist/firebase-config.js && node --check dist/firebase-client.js && node --check admin/admin.js && node --check functions/index.js && node --check dist/public-content.js && node --check functions/member-app.js && node --check functions/member-api.js",
+    "check": "node --check dist/app.js && node --check dist/auth.js && node --check dist/auth-config.js && node --check dist/firebase-config.js && node --check dist/firebase-client.js && node --check admin/admin.js && node --check functions/index.js && node --check dist/public-content.js && node --check functions/member-app.js && node --check functions/member-api.js && node --check functions/game-service.js && node --check dist/game-tracking.js && node --check admin/games.js",
     "native:sync": "cap sync",
     "native:ios": "cap open ios",
     "native:android": "cap open android",
@@ -12,7 +12,8 @@
     "test:rules": "node --test tests/firestore-rules.test.cjs",
     "test:admin": "node --test functions/test/core.test.js",
     "test:admin:integration": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8188 GCLOUD_PROJECT=demo-wearquest node --test functions/test/integration.test.js",
-    "test:kakao": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8188 GCLOUD_PROJECT=demo-wearquest node --test functions/test/member.test.js"
+    "test:kakao": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8188 GCLOUD_PROJECT=demo-wearquest node --test functions/test/member.test.js",
+    "test:games": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8188 GCLOUD_PROJECT=demo-wearquest node --test functions/test/games.test.js"
   },
   "dependencies": {
     "@capacitor/core": "^8.0.0",

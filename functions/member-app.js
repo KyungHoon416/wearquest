@@ -13,7 +13,7 @@ const fail = (status, code) => Object.assign(new Error(code), {status, code});
 const wrap = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 const expiry = ms => Timestamp.fromMillis(Date.now() + ms);
 
-function createMemberApp({db, getSecret, getNaverSecret = () => '', getApplePrivateKey = () => '', request = fetch}) {
+function createMemberApp({db, getSecret, getNaverSecret = () => '', getApplePrivateKey = () => '', verifyFirebaseToken = async () => { throw new Error('UNAUTHENTICATED'); }, request = fetch}) {
   const app = express();
   app.disable('x-powered-by');
   app.set('trust proxy', 1);
@@ -205,6 +205,7 @@ function createMemberApp({db, getSecret, getNaverSecret = () => '', getApplePriv
     }
   }));
   }
+  require('./game-service').attachMemberGames(app, {db, verifyFirebaseToken});
   app.use((_req, res) => res.status(404).json({code: 'NOT_FOUND'}));
   app.use((error, _req, res, _next) => res.status(error instanceof z.ZodError ? 400 : error.status || 500).json({code: error instanceof z.ZodError ? 'VALIDATION' : error.status ? error.code : 'INTERNAL_ERROR'}));
   return app;

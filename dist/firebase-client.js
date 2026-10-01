@@ -61,6 +61,7 @@
         });
       });
     },
+    async idToken() { const {auth}=await services(); return auth.currentUser ? auth.currentUser.getIdToken() : null; },
     async signInGoogle() {
       if (!this.googleEnabled) throw new Error('Google 로그인 연결 준비 중입니다.');
       if (window.Capacitor?.isNativePlatform?.()) {

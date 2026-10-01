@@ -85,3 +85,14 @@ firebase deploy --only functions:admin,firestore,hosting --project wearquest-9a4
 ```
 
 Functions와 Hosting 실제 배포 성공 여부는 명령 전체 종료 코드뿐 아니라 함수 상태와 HTTP 응답을 확인해야 한다. 최초 배포에서 함수는 성공했지만 아티팩트 정리 정책 미설정으로 CLI가 오류 종료했다. 자동 영구 삭제 정책은 승인 검토에서 거절되어 적용하지 않았으며 기존 보관 상태를 유지한다.
+
+
+## 게임 관리 (2026-10-01)
+
+관리자 #games에서 20개 게임의 운영/중지, 한국 시간 시작 날짜별 참여 회원 수(중복 제외), 시작·클리어·중단·미완료 횟수, 평균 클리어 시간을 조회한다. 날짜별 회원번호와 게임 필터 및 25개 단위 최신순 이력을 제공한다. 최고관리자만 운영 상태를 변경할 수 있고 변경 사유는 adminAudit에 남긴다. 중지된 게임은 신규 시작만 차단하며 진행 중인 플레이는 마칠 수 있다.
+
+게임별 설정은 games, 플레이는 gamePlays, 날짜 통계는 gameDailyTotals/gameDailyStats, 참여자 중복 방지는 gameDailyPlayers/gameDailyParticipants에 저장한다. 게임 시작 requestId는 회원과 묶어 멱등 처리하며 완료/중단 집계도 같은 Firestore 트랜잭션에서 한 번만 반영한다. 서버가 시작/종료 시간과 소요 시간을 기록한다. 클라이언트 직접 Firestore 접근은 기존 default-deny 규칙으로 차단된다. Google은 검증된 Firebase ID 토큰, 나머지 로그인은 회원 세션으로 식별한다.
+
+클리어 결과는 클라이언트 보고 데이터로 부정 플레이 검증이 아니다. 이번 범위에서 포인트 원장과 지갑은 변경하지 않는다. 현재 기기 포인트/주문 동작을 유지하며 과거 기기 기록을 업로드하지 않는다. 로그인을 완료한 회원이 새로 플레이한 기록부터 집계한다. 탭 종료 등으로 종료 요청을 보내지 못한 기록은 미완료(진행·이탈)로 남는다. 30분을 넘은 플레이는 완료할 수 없다. 배포 시 gamePlays 복합 인덱스를 먼저 준비해야 한다.
+
+검증: npm run check, 에뮬레이터에서 npm run test:games, node --test tests/game-tracking.test.cjs. 운영 DB에 테스트 회원이나 가짜 플레이 기록을 만들지 않는다.

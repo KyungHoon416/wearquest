@@ -4,7 +4,7 @@ const existingSecurity = require('./src/security');
 const {promisify} = require('node:util');
 const scrypt = promisify(crypto.scrypt);
 const roles = {
-  superadmin: ['read','pii','members','points','products','orders','support','policies','settings','admins','providers'],
+  superadmin: ['read','pii','members','points','products','orders','support','policies','settings','admins','providers','games'],
   operations: ['read','pii','products','orders'],
   support: ['read','pii','members','support'],
   viewer: ['read']
