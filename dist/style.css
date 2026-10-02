@@ -83,3 +83,7 @@ button.quest.done .end{color:#999}
 .wq-ad-label{display:block;margin-bottom:8px;font-size:9px;letter-spacing:2px;color:var(--muted)}
 .wq-display-ad .adsbygoogle{width:100%;min-height:90px}
 body.playing .wq-display-ad{margin-bottom:150px}
+/* Collapse only confirmed unfilled units, per AdSense's data-ad-status API.
+   Pending and filled units stay visible so ad requests and creatives work normally. */
+.wq-display-ad:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none}
+.wq-display-ad > ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}
