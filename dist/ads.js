@@ -18,7 +18,7 @@
   }
   function makeAd(){
     const box=document.createElement('aside');box.className='wq-display-ad';box.setAttribute('aria-label','광고');
-    box.innerHTML=`<span class="wq-ad-label">ADVERTISEMENT</span><ins class="adsbygoogle" style="display:block" data-ad-client="${client}" data-ad-slot="${slot}" data-ad-format="horizontal" data-full-width-responsive="false"></ins>`;
+    box.innerHTML=`<span class="wq-ad-label">ADVERTISEMENT</span><ins class="adsbygoogle" style="display:block" data-ad-client="${client}" data-ad-slot="${slot}" data-ad-format="horizontal" data-full-width-responsive="false"></ins><div class="wq-ad-sample" role="img" aria-label="테스트 광고 · 수익 미발생. WEAR QUEST 수평형 배너 미리보기"><div><span class="wq-ad-sample-tag">테스트 광고 · 수익 미발생</span><strong>PLAY YOUR STYLE.</strong><small>WEAR QUEST · 수평형 배너 미리보기</small></div><span class="wq-ad-sample-art" aria-hidden="true">✳</span></div>`;
     return box;
   }
   window.WearQuestAds={

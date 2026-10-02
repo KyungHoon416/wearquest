@@ -83,7 +83,12 @@ button.quest.done .end{color:#999}
 .wq-ad-label{display:block;margin-bottom:8px;font-size:9px;letter-spacing:2px;color:var(--muted)}
 .wq-display-ad .adsbygoogle{width:100%;min-height:90px}
 body.playing .wq-display-ad{margin-bottom:150px}
-/* Collapse only confirmed unfilled units, per AdSense's data-ad-status API.
-   Pending and filled units stay visible so ad requests and creatives work normally. */
-.wq-display-ad:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none}
+/* Show a clearly labelled house sample only after Google confirms no ad filled. */
 .wq-display-ad > ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}
+
+.wq-ad-sample{display:none;min-height:100px;padding:14px 18px;align-items:center;justify-content:space-between;gap:12px;text-align:left;background:linear-gradient(110deg,#202717,#161b12);border:1px solid #4e6031;border-radius:8px;color:#edf5e1}
+.wq-display-ad > ins[data-ad-status="unfilled"] + .wq-ad-sample{display:flex}
+.wq-ad-sample-tag{display:block;font-size:10px;font-weight:600;letter-spacing:.3px;color:#c8d5b6}
+.wq-ad-sample strong{display:block;margin:5px 0;font-size:clamp(17px,4.5vw,23px);font-weight:850;line-height:1.15;letter-spacing:-.5px;color:#d2f878}
+.wq-ad-sample small{display:block;font-size:10px;color:#b4bdaa}
+.wq-ad-sample-art{flex:none;font-size:52px;line-height:1;color:#d2f878}
