@@ -92,3 +92,4 @@ body.playing .wq-display-ad{margin-bottom:150px}
 .wq-ad-sample strong{display:block;margin:5px 0;font-size:clamp(17px,4.5vw,23px);font-weight:850;line-height:1.15;letter-spacing:-.5px;color:#d2f878}
 .wq-ad-sample small{display:block;font-size:10px;color:#b4bdaa}
 .wq-ad-sample-art{flex:none;font-size:52px;line-height:1;color:#d2f878}
+.site-intro{margin:0 0 28px;padding:18px 0;border-bottom:1px solid var(--line)}.site-intro h2{margin:8px 0 12px}.site-intro p{font-size:14px;line-height:1.8}.site-intro a{display:inline-block;margin-top:12px}.guide-page h2{margin-top:32px}.guide-page p,.guide-page li{line-height:1.9;margin-top:16px}.guide-page a{text-decoration:underline;text-underline-offset:4px}.guide-page ol{padding-left:22px}
